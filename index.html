@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Study Planner</h1>
+        
+        <div class="task-input">
+            <input type="text" id="taskDesc" placeholder="Enter task description">
+            <input type="date" id="taskDeadline">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        
+        <div class="controls">
+            <button onclick="displayTasks()">Display Planned Tasks</button>
+            <button onclick="displayCompletedTasks()">Display Completed Tasks</button>
+            <button onclick="undoCompletedTask()">Undo Last Completed Task</button>
+            <button onclick="clearTasks()">Clear All Tasks</button>
+        </div>
+
+        <div class="tasks">
+            <h2>Planned Tasks</h2>
+            <ul id="plannedTasks"></ul>
+            
+            <h2>Completed Tasks</h2>
+            <ul id="completedTasks"></ul>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
