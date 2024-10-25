@@ -11,59 +11,71 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f8f9fa;
+    background: linear-gradient(to right, #007bff, #0056b3);
     overflow: hidden;
 }
 
 .container {
     width: 95%;
-    max-width: 900px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    text-align: center;
+    max-width: 800px;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     overflow-y: auto;
     max-height: 90vh;
+    text-align: center;
 }
 
 h1 {
     font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #343a40;
+    margin-bottom: 25px;
+    color: #007bff;
 }
 
 .task-input, .task-actions {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 25px;
-    width: 80%;
-    margin: 0 auto;
+    margin-bottom: 30px;
 }
 
-.task-input input, button {
-    padding: 14px;
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
+.task-input input {
+    padding: 15px;
     font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+}
+
+.task-input input:focus {
+    border-color: #007bff;
+    outline: none;
 }
 
 button {
-    cursor: pointer;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
     background-color: #007bff;
     color: white;
-    transition: background-color 0.3s ease;
-    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
 }
 
 button:hover {
     background-color: #0056b3;
+    transform: translateY(-3px);
 }
 
 .task-section {
-    margin-top: 20px;
     text-align: left;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
 }
 
 ul {
@@ -72,28 +84,30 @@ ul {
 }
 
 li {
-    padding: 15px;
-    background: #f1f8ff;
-    margin-bottom: 10px;
-    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: transform 0.3s;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
 }
 
 li:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 li button {
     background: #dc3545;
-    border: none;
+    padding: 8px 12px;
     color: white;
-    padding: 6px 12px;
+    border: none;
     border-radius: 5px;
-    margin-left: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
@@ -101,10 +115,16 @@ li button:hover {
     background: #c82333;
 }
 
-@media screen and (min-width: 600px) {
+.task-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media (min-width: 600px) {
     .task-input, .task-actions {
         flex-direction: row;
-        gap: 10px;
     }
 }
 
