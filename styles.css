@@ -7,39 +7,45 @@
 
 body, html {
     height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f4f8;
+    background-color: #f8f9fa;
+    overflow: hidden;
 }
 
 .container {
-    width: 90%;
+    width: 95%;
     max-width: 900px;
     background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     padding: 30px;
     text-align: center;
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
 h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #333;
+    color: #343a40;
 }
 
 .task-input, .task-actions {
     display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .task-input input, button {
-    padding: 12px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
     font-size: 1rem;
 }
 
@@ -55,7 +61,7 @@ button:hover {
     background-color: #0056b3;
 }
 
-#taskDisplay, #completedTasksDisplay, #progressDisplay {
+.task-section {
     margin-top: 20px;
     text-align: left;
 }
@@ -66,24 +72,44 @@ ul {
 }
 
 li {
-    padding: 12px;
-    background: #e9f5ff;
+    padding: 15px;
+    background: #f1f8ff;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: transform 0.3s;
+}
+
+li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 li button {
-    background: #ff4d4d;
+    background: #dc3545;
     border: none;
     color: white;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 5px;
     margin-left: 5px;
+    transition: background-color 0.3s;
 }
 
 li button:hover {
-    background: #cc0000;
+    background: #c82333;
+}
+
+@media screen and (min-width: 600px) {
+    .task-input, .task-actions {
+        flex-direction: row;
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
 }
