@@ -41,14 +41,23 @@ class StudyPlanner {
         }
     }
 
+    undoCompleteTask() {
+        if (this.completedTasks.length > 0) {
+            const lastCompletedTask = this.completedTasks.pop();
+            lastCompletedTask.completed = false;
+            this.tasks.push(lastCompletedTask);
+        }
+    }
+
+    clearAllTasks() {
+        this.tasks = [];
+        this.completedTasks = [];
+    }
+
     getProgress() {
         const totalTasks = this.tasks.length + this.completedTasks.length;
         const completedPercentage = totalTasks === 0 ? 0 : (this.completedTasks.length / totalTasks) * 100;
-        const pendingPercentage = 100 - completedPercentage;
-        return {
-            completedPercentage: completedPercentage.toFixed(2),
-            pendingPercentage: pendingPercentage.toFixed(2)
-        };
+        return completedPercentage.toFixed(2);
     }
 }
 
@@ -58,9 +67,11 @@ const planner = new StudyPlanner();
 function addTask() {
     const description = document.getElementById('description').value;
     const deadline = document.getElementById('deadline').value;
-    planner.addTask(description, deadline);
-    document.getElementById('description').value = '';
-    document.getElementById('deadline').value = '';
+    if (description && deadline) {
+        planner.addTask(description, deadline);
+        document.getElementById('description').value = '';
+        document.getElementById('deadline').value = '';
+    }
 }
 
 function deleteTask(description) {
@@ -84,21 +95,53 @@ function displayTasks() {
 
     tasks.forEach(task => {
         const listItem = document.createElement('li');
-        listItem.innerHTML = `${task.description} - ${task.deadline} 
-            <button onclick="deleteTask('${task.description}')">Delete</button>
-            <button onclick="editTask('${task.description}')">Edit</button>`;
+        listItem.innerHTML = `
+            ${task.description} - ${task.deadline}
+            <button class="delete" onclick="deleteTask('${task.description}')">Delete</button>
+            <button class="edit" onclick="editTask('${task.description}')">Edit</button>
+            <button onclick="markAsComplete('${task.description}')">Mark as Complete</button>
+        `;
         taskList.appendChild(listItem);
     });
 
     document.getElementById('taskDisplay').style.display = 'block';
 }
 
+function markAsComplete(description) {
+    planner.completeTask(description);
+    displayTasks();
+    displayCompletedTasks();
+}
+
+function undoCompleteTask() {
+    planner.undoCompleteTask();
+    displayTasks();
+    displayCompletedTasks();
+}
+
+function displayCompletedTasks() {
+    const completedTasks = planner.completedTasks;
+    const completedTaskList = document.getElementById('completedTasks');
+    completedTaskList.innerHTML = '';
+
+    completedTasks.forEach(task => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${task.description} - ${task.deadline}`;
+        completedTaskList.appendChild(listItem);
+    });
+
+    document.getElementById('completedTasksDisplay').style.display = 'block';
+}
+
 function showProgress() {
     const progress = planner.getProgress();
-    const progressDisplay = document.getElementById('progressDisplay');
-    progressDisplay.innerHTML = `
-        <p>Completed Tasks: ${progress.completedPercentage}%</p>
-        <p>Pending Tasks: ${progress.pendingPercentage}%</p>
-    `;
-    progressDisplay.style.display = 'block';
+    document.getElementById('progressData').innerText = `Completed: ${progress}%`;
+    document.getElementById('progressDisplay').style.display = 'block';
+}
+
+function clearAllTasks() {
+    planner.clearAllTasks();
+    displayTasks();
+    displayCompletedTasks();
+    document.getElementById('progressDisplay').style.display = 'none';
 }
