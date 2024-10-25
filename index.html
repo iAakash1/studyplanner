@@ -4,240 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Planner</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body, html {
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f4f4f9;
-        }
-
-        #app {
-            width: 90%;
-            max-width: 800px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .input-section {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            color: #555;
-        }
-
-        input[type="text"], input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        button {
-            padding: 12px;
-            width: 100%;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        #taskDisplay {
-            display: none;
-            margin-top: 20px;
-            border-top: 1px solid #ddd;
-            padding-top: 15px;
-        }
-
-        .task-list {
-            list-style: none;
-        }
-
-        .task-item {
-            padding: 10px;
-            background-color: #e9f5ff;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .task-item span {
-            font-size: 14px;
-            color: #333;
-        }
-
-        .task-item button {
-            background-color: #ff6666;
-            padding: 5px 10px;
-            font-size: 14px;
-            border-radius: 3px;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="app">
+    <div class="container">
         <h1>Study Planner</h1>
-        <div class="input-section">
-            <label for="description">Task Description:</label>
-            <input type="text" id="description" placeholder="Enter task description">
 
-            <label for="deadline">Deadline:</label>
-            <input type="date" id="deadline">
+        <div>
+            <input type="text" id="description" placeholder="Task Description">
+            <input type="date" id="deadline" placeholder="Deadline">
+            <button onclick="addTask()">Add Task</button>
         </div>
-        
-        <button onclick="addTask()">Add Task</button>
-        
-        <div class="button-group">
+
+        <div>
             <button onclick="displayTasks()">Display Planned Tasks</button>
-            <button onclick="completeTask()">Complete Task</button>
-            <button onclick="undoTask()">Undo Recently Completed Task</button>
-            <button onclick="clearAllTasks()">Clear All Tasks</button>
+            <button onclick="showProgress()">Show Progress</button>
         </div>
-        
-        <div id="taskDisplay">
+
+        <div id="taskDisplay" style="display: none;">
             <h2>Planned Tasks</h2>
-            <ul id="plannedTasks" class="task-list"></ul>
+            <ul id="plannedTasks"></ul>
+        </div>
+
+        <div id="progressDisplay" style="display: none;">
+            <h2>Progress</h2>
         </div>
     </div>
 
-    <script>
-        class Task {
-            constructor(description, deadline) {
-                this.description = description;
-                this.deadline = deadline;
-                this.completed = false;
-            }
-        }
-
-        class StudyPlanner {
-            constructor() {
-                this.tasks = [];
-                this.completedTasks = [];
-            }
-
-            addTask(description, deadline) {
-                this.tasks.push(new Task(description, deadline));
-            }
-
-            getPlannedTasks() {
-                return this.tasks;
-            }
-
-            completeTask(description) {
-                const index = this.tasks.findIndex(task => task.description === description);
-                if (index !== -1) {
-                    const completedTask = this.tasks.splice(index, 1)[0];
-                    completedTask.completed = true;
-                    this.completedTasks.push(completedTask);
-                }
-            }
-
-            undoTask() {
-                if (this.completedTasks.length > 0) {
-                    this.tasks.push(this.completedTasks.pop());
-                }
-            }
-
-            clearAllTasks() {
-                this.tasks = [];
-                this.completedTasks = [];
-            }
-        }
-
-        const planner = new StudyPlanner();
-
-        function addTask() {
-            const description = document.getElementById('description').value;
-            const deadline = document.getElementById('deadline').value;
-            if (description && deadline) {
-                planner.addTask(description, deadline);
-                alert("Task added successfully!");
-                document.getElementById('description').value = "";
-                document.getElementById('deadline').value = "";
-            } else {
-                alert("Please enter both a description and a deadline.");
-            }
-        }
-
-        function displayTasks() {
-            const tasks = planner.getPlannedTasks();
-            const taskDisplay = document.getElementById('taskDisplay');
-            const plannedTasks = document.getElementById('plannedTasks');
-            plannedTasks.innerHTML = "";
-            
-            if (tasks.length > 0) {
-                taskDisplay.style.display = 'block';
-                tasks.forEach(task => {
-                    const taskItem = document.createElement('li');
-                    taskItem.classList.add('task-item');
-                    taskItem.innerHTML = `
-                        <span>${task.description} - Due: ${task.deadline}</span>
-                        <button onclick="completeTask('${task.description}')">Complete</button>
-                    `;
-                    plannedTasks.appendChild(taskItem);
-                });
-            } else {
-                taskDisplay.style.display = 'none';
-                alert("No tasks to display.");
-            }
-        }
-
-        function completeTask(description) {
-            planner.completeTask(description);
-            alert("Task marked as complete.");
-            displayTasks();
-        }
-
-        function undoTask() {
-            planner.undoTask();
-            alert("Last completed task has been undone.");
-            displayTasks();
-        }
-
-        function clearAllTasks() {
-            planner.clearAllTasks();
-            alert("All tasks have been cleared.");
-            displayTasks();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
