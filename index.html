@@ -10,24 +10,37 @@
     <div class="container">
         <h1>Study Planner</h1>
 
-        <div>
+        <!-- Task Input -->
+        <div class="task-input">
             <input type="text" id="description" placeholder="Task Description">
             <input type="date" id="deadline" placeholder="Deadline">
             <button onclick="addTask()">Add Task</button>
         </div>
 
-        <div>
+        <!-- Action Buttons -->
+        <div class="task-actions">
             <button onclick="displayTasks()">Display Planned Tasks</button>
+            <button onclick="displayCompletedTasks()">Show Completed Tasks</button>
             <button onclick="showProgress()">Show Progress</button>
+            <button onclick="clearAllTasks()">Clear All Tasks</button>
         </div>
 
+        <!-- Planned Tasks Display -->
         <div id="taskDisplay" style="display: none;">
             <h2>Planned Tasks</h2>
             <ul id="plannedTasks"></ul>
         </div>
 
+        <!-- Completed Tasks Display -->
+        <div id="completedTasksDisplay" style="display: none;">
+            <h2>Completed Tasks</h2>
+            <ul id="completedTasks"></ul>
+        </div>
+
+        <!-- Progress Display -->
         <div id="progressDisplay" style="display: none;">
             <h2>Progress</h2>
+            <p id="progressData"></p>
         </div>
     </div>
 
