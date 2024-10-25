@@ -16,6 +16,18 @@ class StudyPlanner {
         this.tasks.push(new Task(description, deadline));
     }
 
+    deleteTask(description) {
+        this.tasks = this.tasks.filter(task => task.description !== description);
+    }
+
+    editTask(oldDescription, newDescription, newDeadline) {
+        const task = this.tasks.find(task => task.description === oldDescription);
+        if (task) {
+            task.description = newDescription;
+            task.deadline = newDeadline;
+        }
+    }
+
     getPlannedTasks() {
         return this.tasks;
     }
@@ -29,18 +41,6 @@ class StudyPlanner {
         }
     }
 
-    undoTask() {
-        if (this.completedTasks.length > 0) {
-            this.tasks.push(this.completedTasks.pop());
-        }
-    }
-
-    clearAllTasks() {
-        this.tasks = [];
-        this.completedTasks = [];
-    }
-
-    // New method to calculate progress
     getProgress() {
         const totalTasks = this.tasks.length + this.completedTasks.length;
         const completedPercentage = totalTasks === 0 ? 0 : (this.completedTasks.length / totalTasks) * 100;
@@ -52,10 +52,47 @@ class StudyPlanner {
     }
 }
 
-// Rest of the JavaScript functions...
+// JavaScript functions for frontend interaction
 const planner = new StudyPlanner();
 
-// Add a function to show progress on the front end
+function addTask() {
+    const description = document.getElementById('description').value;
+    const deadline = document.getElementById('deadline').value;
+    planner.addTask(description, deadline);
+    document.getElementById('description').value = '';
+    document.getElementById('deadline').value = '';
+}
+
+function deleteTask(description) {
+    planner.deleteTask(description);
+    displayTasks();
+}
+
+function editTask(oldDescription) {
+    const newDescription = prompt("Enter new task description:", oldDescription);
+    const newDeadline = prompt("Enter new deadline:");
+    if (newDescription && newDeadline) {
+        planner.editTask(oldDescription, newDescription, newDeadline);
+        displayTasks();
+    }
+}
+
+function displayTasks() {
+    const tasks = planner.getPlannedTasks();
+    const taskList = document.getElementById('plannedTasks');
+    taskList.innerHTML = '';
+
+    tasks.forEach(task => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `${task.description} - ${task.deadline} 
+            <button onclick="deleteTask('${task.description}')">Delete</button>
+            <button onclick="editTask('${task.description}')">Edit</button>`;
+        taskList.appendChild(listItem);
+    });
+
+    document.getElementById('taskDisplay').style.display = 'block';
+}
+
 function showProgress() {
     const progress = planner.getProgress();
     const progressDisplay = document.getElementById('progressDisplay');
