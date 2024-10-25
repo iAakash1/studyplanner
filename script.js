@@ -61,7 +61,6 @@ class StudyPlanner {
     }
 }
 
-// JavaScript functions for frontend interaction
 const planner = new StudyPlanner();
 
 function addTask() {
@@ -71,6 +70,7 @@ function addTask() {
         planner.addTask(description, deadline);
         document.getElementById('description').value = '';
         document.getElementById('deadline').value = '';
+        alert("Task Added!");
     }
 }
 
@@ -97,8 +97,8 @@ function displayTasks() {
         const listItem = document.createElement('li');
         listItem.innerHTML = `
             ${task.description} - ${task.deadline}
-            <button class="delete" onclick="deleteTask('${task.description}')">Delete</button>
-            <button class="edit" onclick="editTask('${task.description}')">Edit</button>
+            <button onclick="deleteTask('${task.description}')">Delete</button>
+            <button onclick="editTask('${task.description}')">Edit</button>
             <button onclick="markAsComplete('${task.description}')">Mark as Complete</button>
         `;
         taskList.appendChild(listItem);
