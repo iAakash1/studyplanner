@@ -126,7 +126,7 @@ function displayCompletedTasks() {
 
     completedTasks.forEach(task => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${task.description} - ${task.deadline}`;
+        listItem.textContent = task.description;
         completedTaskList.appendChild(listItem);
     });
 
@@ -135,7 +135,7 @@ function displayCompletedTasks() {
 
 function showProgress() {
     const progress = planner.getProgress();
-    document.getElementById('progressData').innerText = `Completed: ${progress}%`;
+    document.getElementById('progressData').textContent = `Progress: ${progress}%`;
     document.getElementById('progressDisplay').style.display = 'block';
 }
 
@@ -143,5 +143,4 @@ function clearAllTasks() {
     planner.clearAllTasks();
     displayTasks();
     displayCompletedTasks();
-    document.getElementById('progressDisplay').style.display = 'none';
 }
