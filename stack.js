@@ -27,26 +27,35 @@ class StudyPlanner {
     }
 
     addTask(desc, dl) {
+        //create a new node
         const newTask = new Task(desc, dl);
+        //if its empty or the newNode deadline is more recent then add it to the top and update top
         if (this.isEmpty() || this.topDeadline() >= dl) {
             newTask.next = this.top;
             this.top = newTask;
             return;
         }
 
+        //else find the correct place for newNode insertion
+        //pointing temp to next node of top and pre to top
         let temp = this.top.next;
         let prev = this.top;
+        //keep finding for the place to be inserted
         while (temp && temp.deadline < dl) {
+            //position not found
+            //so go aage
             prev = temp;
             temp = temp.next;
         }
-
+        //got the position so insert
+        //prev ke baad place karna hai, as temp ke bad karna hai
         prev.next = newTask;
         newTask.next = temp;
     }
 
     displayStack() {
         if (this.isEmpty()) {
+            //console.log is used to promt the written message on the website
             console.log("No tasks planned!");
             return;
         }
@@ -74,15 +83,19 @@ class StudyPlanner {
 
         while (temp) {
             if (temp.description === taskDesc) {
+                //if its the top ie the first node move the top forward
                 if (temp === this.top) {
                     this.top = this.top.next;
                 } else {
+                    //temp ka data hatana hai from the main stack
                     prev.next = temp.next;
                 }
+                //add it to the completed stack 
                 this.compStackPush(temp.description, temp.deadline);
                 console.log(`Task completed: ${taskDesc}`);
                 return;
             }
+            //if not found aage jao
             prev = temp;
             temp = temp.next;
         }
@@ -90,6 +103,9 @@ class StudyPlanner {
     }
 
     compStackPush(desc, dl) {
+        //normal adding to the linked list for completed stack
+        //not based on deadline
+        //we need this for the undoing recently compled task(topmost ele of this)
         const newTask = new Task(desc, dl);
         newTask.completed = true;
         newTask.next = this.completedTop;
@@ -115,14 +131,17 @@ class StudyPlanner {
         let temp = this.top, prev = null;
         while (temp) {
             if (temp.description === desc) {
+                 //if its the top ie the first node move the top forward
                 if (temp === this.top) {
                     this.top = this.top.next;
                 } else {
+                    //baki lis me mila hai
                     prev.next = temp.next;
                 }
                 console.log(`Task ${desc} deleted.`);
                 return;
             }
+            //else aage jao as abhi tak mila nahi hai
             prev = temp;
             temp = temp.next;
         }
