@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enhanced Study Planner</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>Study Planner</h1>
+        <h1>📅 Study Planner</h1>
 
         <!-- Task Input Section -->
         <div class="task-input">
             <input type="text" id="description" placeholder="Task Description" required>
             <input type="date" id="deadline" required>
-            <button onclick="addTask()">Add Task</button>
+            <button class="add-btn" onclick="addTask()">Add Task</button>
         </div>
 
         <!-- Action Buttons Section -->
@@ -22,23 +23,23 @@
             <button onclick="displayTasks()">Display Planned Tasks</button>
             <button onclick="displayCompletedTasks()">Show Completed Tasks</button>
             <button onclick="showProgress()">Show Progress</button>
-            <button onclick="clearAllTasks()">Clear All</button>
+            <button class="clear-btn" onclick="clearAllTasks()">Clear All</button>
         </div>
 
         <!-- Planned Tasks Display Section -->
-        <div id="taskDisplay" class="task-section" style="display: none;">
+        <div id="taskDisplay" class="task-section hidden">
             <h2>Planned Tasks</h2>
             <ul id="plannedTasks"></ul>
         </div>
 
         <!-- Completed Tasks Display Section -->
-        <div id="completedTasksDisplay" class="task-section" style="display: none;">
+        <div id="completedTasksDisplay" class="task-section hidden">
             <h2>Completed Tasks</h2>
             <ul id="completedTasks"></ul>
         </div>
 
         <!-- Progress Display Section -->
-        <div id="progressDisplay" class="task-section" style="display: none;">
+        <div id="progressDisplay" class="task-section hidden">
             <h2>Progress</h2>
             <p id="progressData"></p>
         </div>
