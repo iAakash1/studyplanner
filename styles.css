@@ -1,135 +1,139 @@
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
-body, html {
-    height: 100%;
-    width: 100%;
+/* Body Background */
+body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right, #007bff, #0056b3);
-    overflow: hidden;
+    height: 100vh;
+    background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    color: #333;
 }
 
+/* Container Styling */
 .container {
-    width: 95%;
-    max-width: 800px;
     background: #ffffff;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
     border-radius: 15px;
-    padding: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    overflow-y: auto;
-    max-height: 90vh;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     text-align: center;
+    animation: fadeIn 0.8s ease;
 }
 
 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 25px;
-    color: #007bff;
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #4a4a4a;
 }
 
-.task-input, .task-actions {
+/* Task Input Styling */
+.task-input {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
 }
 
-.task-input input {
-    padding: 15px;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+.task-input input[type="text"],
+.task-input input[type="date"] {
+    flex: 1;
+    padding: 0.7rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    outline: none;
+    font-size: 0.9rem;
+    color: #333;
     transition: border-color 0.3s ease;
 }
 
-.task-input input:focus {
-    border-color: #007bff;
-    outline: none;
+.task-input input[type="text"]:focus,
+.task-input input[type="date"]:focus {
+    border-color: #66a6ff;
 }
 
-button {
-    padding: 15px;
-    font-size: 1rem;
-    border-radius: 8px;
+.add-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #66a6ff;
     border: none;
-    background-color: #007bff;
-    color: white;
+    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-3px);
+.add-btn:hover {
+    background-color: #4a8fdb;
 }
 
-.task-section {
-    text-align: left;
-    margin-top: 30px;
+/* Action Buttons */
+.task-actions {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-width: 100%;
+    gap: 0.5rem;
 }
 
-ul {
-    list-style: none;
+.task-actions button {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #89f7fe;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.task-actions button:hover {
+    background-color: #66a6ff;
+}
+
+.clear-btn {
+    background-color: #ff6b6b;
+}
+
+.clear-btn:hover {
+    background-color: #d9534f;
+}
+
+/* Task Sections */
+.task-section {
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.task-section h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.8rem;
+}
+
+.task-section ul {
+    list-style-type: none;
     padding: 0;
 }
 
-li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
+.task-section li {
+    padding: 0.8rem;
+    margin: 0.4rem 0;
     background: #f9f9f9;
     border-radius: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-li:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+.hidden {
+    display: none;
 }
 
-li button {
-    background: #dc3545;
-    padding: 8px 12px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-li button:hover {
-    background: #c82333;
-}
-
-.task-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-@media (min-width: 600px) {
-    .task-input, .task-actions {
-        flex-direction: row;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
-    }
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
